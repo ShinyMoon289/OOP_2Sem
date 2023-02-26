@@ -15,9 +15,15 @@ public:
 		cout << "Enter the street: ";
 		getline(cin, street);
 		cout << "Enter house number: ";
-		cin >> strNum;
+		do
+		{
+			cin >> strNum;
+		} while (strNum < 1);
 		cout << "Enter local postal number: ";
-		cin >> postInd;
+		do
+		{
+			cin >> postInd;
+		} while (postInd < 1);
 		cout << "Postal adress created!"<<endl;
 	}
 	~PostalAddress()
@@ -58,13 +64,21 @@ public:
 		case 3:
 		{
 			cout << "Enter the new postal number: ";
-			cin >> postInd;
+			do
+			{
+				cin >> postInd;
+			} while (postInd < 1);
+			
 			break;
 		}
 		case 4:
 		{
 			cout << "Enter the new house number: ";
-			cin >> strNum;
+			do
+			{
+				cin >> strNum;
+			} while (strNum < 1);
+			
 			break;
 		}
 		case 0:
@@ -75,7 +89,7 @@ public:
 	}
 	void DisplayAddress()
 	{
-		cout << city << ", " << street << ", " << strNum << "." << "Postal number: " << postInd;
+		cout << city << ", " << street << ", " << strNum << ". " << "Postal number: " << postInd;
 	}
 };
 
