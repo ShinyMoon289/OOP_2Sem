@@ -44,12 +44,14 @@ public:
 		case 1:
 		{
 			cout<< "Enter the new city: ";
+			cin.ignore();
 			getline(cin, city);
 			break;
 		}
 		case 2:
 		{
 			cout << "Enter the new street: ";
+			cin.ignore();
 			getline(cin, street);
 			break;
 		}
