@@ -18,17 +18,28 @@ public:
 		do
 		{
 			cin >> strNum;
+			while (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(INT_MAX, '\n');
+			}
 		} while (strNum < 1);
+		
 		cout << "Enter local postal number: ";
 		do
 		{
 			cin >> postInd;
+			while (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(INT_MAX, '\n');
+			}
 		} while (postInd < 1);
 		cout << "Postal adress created!"<<endl;
 	}
 	~PostalAddress()
 	{
-		cout << "Postal adress deleted.";
+		cout << endl << "Postal adress deleted.";
 	}
 	void ChangeAddress()
 	{
@@ -38,12 +49,17 @@ public:
 		cout << "2 - Street" << endl;
 		cout << "3 - Postal Number" << endl;
 		cout << "4 - House number" << endl;
-		cout << "0 - Cancel" << endl;
+		cout << "5 - Cancel" << endl;
 		
 		do
 		{
 			cin >> clicker;
-		} while (clicker > 5 && clicker < 0);
+			while (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(INT_MAX, '\n');
+			}
+		} while (clicker > 6 && clicker < 1);
 
 		switch (clicker)
 		{
@@ -67,6 +83,11 @@ public:
 			do
 			{
 				cin >> postInd;
+				while (cin.fail())
+				{
+					cin.clear();
+					cin.ignore(INT_MAX, '\n');
+				}
 			} while (postInd < 1);
 			
 			break;
@@ -77,11 +98,16 @@ public:
 			do
 			{
 				cin >> strNum;
+				while (cin.fail())
+				{
+					cin.clear();
+					cin.ignore(INT_MAX, '\n');
+				}
 			} while (strNum < 1);
 			
 			break;
 		}
-		case 0:
+		case 5:
 		{
 			break;
 		}
@@ -99,14 +125,15 @@ int main()
 	while (true)
 	{
 		int clicker;
-		cout << "MENU:" << endl;
+		cout << endl << "MENU:" << endl;
 		cout << "1 - Display the address" << endl;
 		cout << "2 - Edit the address" << endl;
-		cout << "0 - Exit the program" << endl;
+		cout << "3 - Exit the program" << endl;
 		do
 		{
 			cin >> clicker;
-		} while (clicker > 2 && clicker < 0);
+			
+		} while (clicker > 3 && clicker < 1);
 		switch (clicker)
 		{
 		case 1:
@@ -119,7 +146,7 @@ int main()
 			address.ChangeAddress();
 			break;
 		}
-		case 0:
+		case 3:
 		{
 			return 0;
 		}
