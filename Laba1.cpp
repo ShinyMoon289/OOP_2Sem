@@ -1,7 +1,6 @@
 #include <iostream>
 #include<string>
 #include<vector>
-#include<fstream>
 using namespace std;
 
 class PostalAddress
@@ -53,6 +52,7 @@ public:
 		int postIndex, streetNum;
 
 		cout << "Enter the city: ";
+		cin.ignore();
 		getline(cin, cityName);
 		setCityName(cityName);
 
@@ -84,12 +84,10 @@ public:
 		} while (postIndex < 1);
 		setPostIndex(postIndex);
 
-		cout << "Postal adress created!"<<endl;
 	}
-	~PostalAddress()
-	{
-		cout << endl << "Postal address deleted.";
-	}
+
+	~PostalAddress(){}
+
 	void ChangeAddress()
 	{
 		int clicker;
@@ -170,47 +168,92 @@ public:
 	}
 	void DisplayAddress()
 	{
-		cout << getCityName() << ", " << getStreetName() << ", " << getStreetNum() << ". " << "Postal number: " << getPostIndex();
+		cout << getCityName() << ", " << getStreetName() << ", " << getStreetNum() << ". " << "Postal number: " << getPostIndex() << endl;
 	}
 };
 
+vector<PostalAddress> listOfAdresses;
+
 int main()
 {
-	PostalAddress address;
-	ofstream addressFile;
-	addressFile.open("Address.txt",ios::in);
-	if (!addressFile.is_open()) cout << "unable to write file.";
+	
+	
 	while (true)
 	{
-		addressFile.seekp(0);
-		addressFile << address.getCityName() << ", " << address.getStreetName() << ", " << address.getStreetNum() << ". " << "Postal number: " << address.getPostIndex()<< endl;
 		int clicker;
 		cout << endl << "MENU:" << endl;
 		cout << "1 - Display the address" << endl;
 		cout << "2 - Edit the address" << endl;
 		cout << "3 - Exit the program" << endl;
+		cout << "4 - Add an address" << endl;
+		cout << "5 - Delete an address" << endl;
 		do
 		{
 			cin >> clicker;
 			
-		} while (clicker > 3 && clicker < 1);
+		} while (clicker > 5 && clicker < 1);
 		switch (clicker)
 		{
 		case 1:
 		{
-			address.DisplayAddress();
+			for (int m = 0; m < listOfAdresses.size(); m++)
+			{
+				
+				for (int i = 0; i < 31; i++)cout << "-";
+				cout << endl;
+				listOfAdresses[m].DisplayAddress();
+			}
+			for (int i = 0; i < 31; i++)cout << "-";
 			break;
 		}
 		case 2:
 		{
-			address.ChangeAddress();
+			cout << "Which address do you want to change?";
+			int chooser;
+			cin >> chooser;
+			while (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(INT_MAX, '\n');
+			}
+			if (chooser > listOfAdresses.size() || chooser < 0)
+			{
+				cout << "Incorrect number!";
+				break;
+			}
+			listOfAdresses[chooser].ChangeAddress();
 			break;
 		}
 		case 3:
 		{
 			return 0;
 		}
+		case 4:
+		{
+			PostalAddress newaddress;
+			listOfAdresses.push_back(newaddress);
+			break;
+		}
+		case 5:
+		{
+			cout << "Which address do you want to delete?";
+			int chooser;
+			cin >> chooser;
+			while (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(INT_MAX, '\n');
+			}
+			if (chooser > listOfAdresses.size()-1 || chooser < 0)
+			{
+				cout << "Incorrect number!";
+				break;
+			}
+			listOfAdresses.erase(listOfAdresses.begin() + chooser);
+			break;
+		}
 		}
 	}
-	addressFile.close();
 	return 0;
+
+}
